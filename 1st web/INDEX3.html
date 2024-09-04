@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPPENINGS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #ffffff;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgb(0, 0, 0);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #ffffff; /* Changed to white for visibility */
+        }
+        .update {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .update:last-child {
+            border-bottom: none;
+        }
+        .date {
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .text {
+            margin: 5px 0 10px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+        }
+        .back-button:hover {
+            background-color: #0056b3; /* Changed to match color scheme */
+        }
+        footer {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        #notifyButton {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #notifyButton:hover {
+            background-color: #0056b3;
+        }
+        .glow {
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+            }
+            to {
+                box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HAPPENINGS</h1>
+        <p>HAPPENINGS</p>
+    </header>
+    <section>
+        <div class="content">
+            <div class="update">
+                <p class="date" id="currentDate"></p> <!-- ID added for JavaScript -->
+                <p class="text">A GUY MASTURBATES IN HIS ROOM AT VILLAGE</p> <!-- Corrected typo -->
+            </div>
+            <a href="javascript:window.history.back();" class="back-button">Back</a>
+            <button id="notifyButton">NOTIFY ME</button>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; you study me maski. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to format the date as needed
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Set the current date in the 'date' element
+        document.getElementById('currentDate').textContent = formatDate(new Date());
+
+        // Function to request permission for notifications
+        function requestNotificationPermission() {
+            if (Notification.permission === 'granted') {
+                return; // Permission already granted
+            }
+            if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        console.log('Notification permission granted.');
+                    }
+                });
+            }
+        }
+
+        // Function to send a notification
+        function sendNotification() {
+            if (Notification.permission === 'granted') {
+                const options = {
+                    body: 'This is a notification about new things on our site!',
+                    icon: 'https://via.placeholder.com/150' // Optional icon
+                };
+                new Notification('New Update', options);
+            } else {
+                console.log('Notification permission not granted.');
+            }
+        }
+
+        // Function to check for new updates (example logic)
+        function checkForNewUpdates() {
+            // Simulate checking for new updates
+            let newUpdateAvailable = true; // Replace with actual logic
+
+            if (newUpdateAvailable) {
+                document.getElementById('notifyButton').classList.add('glow');
+            }
+        }
+
+        // Call the function to check for new updates
+        checkForNewUpdates();
+
+        // Request permission when the page loads
+        requestNotificationPermission();
+
+        // Attach event listener to the button
+        document.getElementById('notifyButton').addEventListener('click', sendNotification);
+    </script>
+</body>
+</html>
